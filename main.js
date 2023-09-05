@@ -1,26 +1,46 @@
-var timer = 5;
-var score = 0;
+var timer;
+var score;
 var Hitnum;
 const newGame = document.getElementById('#New-Game');
 
 
 function StartGame(){
-    document.querySelector('#pbtm').addEventListener('click',function(dets){
+    timer = 10;
+    score = 0;
+    getNewHit();
+    runtimer();
+    makeBubble();
+    CheckHit();
+    
+}
+function CheckHit()
+    
+    {document.querySelector('#pbtm').addEventListener('click',function(dets){
+        event.stopPropagation();
         var clickedNumber = (Number(dets.target.textContent))
+        console.log(clickedNumber)
+        
+        
+        
         if(clickedNumber === Hitnum){
+            console.log("if loop passed")
             increaseScore();
             getNewHit();
             makeBubble();
+            
         }
         else{
-            console.log('button in pbtm clicked')
-            alert('wrong hit')
-            increaseScore();
+            console.log('else loop passed')
+           
+            
             getNewHit();
             makeBubble();
         }
     })
-
+}
+function scoreReset(){
+    score = 0;
+    document.querySelector('#Score').textContent = score;
 }
 function increaseScore(){
     score += 10;
@@ -58,15 +78,11 @@ function runtimer(){
     document.querySelector('#Hit').textContent = 0
     document.querySelector('#newgame').addEventListener('click',function(){
         event.stopPropagation();
+        PlayAgain();
         console.log('button clicked')
         
-        timer = 10;
+       
         
-    
-        StartGame();
-        getNewHit();
-        runtimer();
-        makeBubble();
         
 
     })
@@ -77,7 +93,15 @@ function runtimer(){
    ,1000)
 
 }
+
+function PlayAgain(){
+    timer = 10;
+    score = 0;
+    scoreReset();
+    StartGame();
+    
+
+}
 StartGame();
-getNewHit();
-runtimer();
-makeBubble();
+
+
